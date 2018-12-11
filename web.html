@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    html, body{
+      height: 100%;
+      background: #232428;
+      color: #f6f7fd;
+      font-family: 'Source Code Pro', monospace;
+    }
+    body {
+      padding-left: 10vw;
+      padding-top: 5vw;
+    }
+
+    p {
+      font-size: 1.5em;
+      line-height: 2em;
+    }
+    
+    span.name {
+      color: #e6e993;
+    }
+
+    span.footer {
+      position: absolute;
+      bottom: 2em;
+      display: block;
+      font-size: 0.9em;
+    }
+
+    code {
+      font-size: 1.75em;
+      background: #f6f7fd;
+      color: #232428;
+      line-height: 2em;
+      padding: 4px 10px;
+    }
+
+    code::before{
+      content: '$ ';
+    }
+
+    a {
+      text-decoration: none;
+      color: #ff7f7f;
+      border-bottom: 1px solid #ff7f7f;
+    }
+  </style>
+</head>
+<body>
+  <p><span class="name">init.sh</span> configures the shell environment that I use</p>
+  <p>You can install <span class="name">init.sh</span> with</p>
+  <code>curl -fsSL blur.kr/init.sh | sh</code>
+  <span class="footer">Made by <a href="https://github.com/blurfx">blurfx</a> with ♥</span>
+</body>
+</html>

@@ -1,0 +1,65 @@
+#!/bin/sh
+# <style> body { display: none; } </style>
+# <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+# <script> $(document.body).load('web.html'); </script>
+OS="$(uname)"
+PM="unknown"
+
+# determine os
+if [ "$OS" != "Darwin" ] && [ "$OS" != "Linux" ]; then
+  while true; do
+    read -p "$OS is not tested yet. do you want to continue anyway? [Y/n]" yn
+    case $yn in
+      [Yy]*) break;;
+      [Nn]*) exit;;
+      *) echo "Please answer 'Y[es] or [n]o'";;
+    esac
+  done
+fi
+
+# get system package manager
+(which yum >/dev/null 2>&1) && { PM="yum"; }
+(which apt-get >/dev/null 2>&1) && { PM="apt-get"; }
+
+# check curl is installed
+(which curl >/dev/null 2>&1); CURL_INSTALLED=$?;
+(which zsh >/dev/null 2>&1); ZSH_INSTALLED=$?;
+(which git >/dev/null 2>&1); GIT_INSTALLED=$?;
+(which vim >/dev/null 2>&1); VIM_INSTALLED=$?;
+# check zsh and curl is installed if not exit
+
+if [ $ZSH_INSTALLED -eq 1 ]; then
+  echo "Please install \`zsh\` first"
+  exit;
+elif [ $CURL_INSTALLED -eq 1 ]; then
+  echo "Please install \`cURL\` first"
+  exit;
+elif [ $GIT_INSTALLED -eq 1 ]; then
+  echo "Please install \`git\` first"
+  exit;
+elif [ $VIM_INSTALLED -eq 1 ]; then
+  echo "Please install \`vim\` first"
+  exit;
+fi
+
+# install oh-my-zsh
+echo "Installing oh-my-zsh ..."
+sh -c 'curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh'
+
+# install zplug
+echo "Installing zplug ..."
+sh -c 'curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh'
+
+# install custom zsh config
+echo "Installing blurfx/dotfiles/.zshrc ..."
+sh -c 'curl -fsLo ~/.zshrc https://raw.githubusercontent.com/blurfx/dotfiles/master/.zshrc'
+
+# install vim-plug
+echo "Installing vim-plug ..."
+sh -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim';
+
+# install custom vim config
+echo "Installing blurfx/dotfiles/.vimrc ..."
+sh -c 'curl -fsLo ~/.vimrc https://raw.githubusercontent.com/blurfx/dotfiles/master/.vimrc'
+
+echo "Done! Please change default shell to zsh with \`chsh -s \$(which zsh)\` command";
