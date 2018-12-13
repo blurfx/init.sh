@@ -1,9 +1,8 @@
 #!/bin/sh
 # <style> body { display: none; } </style>
-# <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+# <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 # <script> $(document.body).load('web.html'); </script>
 OS="$(uname)"
-PM="unknown"
 
 # determine os
 if [ "$OS" != "Darwin" ] && [ "$OS" != "Linux" ]; then
@@ -16,18 +15,13 @@ if [ "$OS" != "Darwin" ] && [ "$OS" != "Linux" ]; then
     esac
   done
 fi
-
-# get system package manager
-(which yum >/dev/null 2>&1) && { PM="yum"; }
-(which apt-get >/dev/null 2>&1) && { PM="apt-get"; }
-
-# check curl is installed
+# check some binary is installed
 (which curl >/dev/null 2>&1); CURL_INSTALLED=$?;
 (which zsh >/dev/null 2>&1); ZSH_INSTALLED=$?;
 (which git >/dev/null 2>&1); GIT_INSTALLED=$?;
 (which vim >/dev/null 2>&1); VIM_INSTALLED=$?;
-# check zsh and curl is installed if not exit
 
+# check zsh and curl is installed if not exit
 if [ $ZSH_INSTALLED -eq 1 ]; then
   echo "Please install \`zsh\` first"
   exit;
